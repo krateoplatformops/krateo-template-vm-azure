@@ -140,7 +140,7 @@ It can also be customized to include additional ranges. The file already account
 # backupRange value is 2024-06-15/2025-06-15
 ```
 
-## Optimizations (Krateo 2.5.0)
+## Optimizations
 The optimizations rely on Open Policy Agent (OPA). The instances of this composition definition will install the hook automatically through the [finops-webhook-template-chart](https://github.com/krateoplatformops/finops-webhook-template-chart), which is imported as a dependency. The template checks whether the webhook already exists, if it does not then it creates it, otherwise it does nothing. If you have a custom installation of OPA that uses https, you will need to manually configure the certificates, otherwise, if you installed OPA through the Krateo Installer, it is done automatically.
 
 The fields:
