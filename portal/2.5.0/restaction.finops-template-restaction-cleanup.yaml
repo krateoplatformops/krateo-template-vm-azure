@@ -1,0 +1,19 @@
+apiVersion: templates.krateo.io/v1
+kind: RESTAction
+metadata:
+  name: finops-template-restaction-cleanup
+  namespace: azure-pricing-system
+spec:
+  api:
+  - name: deletePanel
+    path: "/apis/widgets.templates.krateo.io/v1beta1/namespaces/azure-pricing-system/panels/finops-template-panel"
+    verb: DELETE
+  - name: deletePanelParagraph
+    path: "/apis/widgets.templates.krateo.io/v1beta1/namespaces/azure-pricing-system/paragraphs/finops-template-panel-paragraph"
+    verb: DELETE
+  - name: deletePanelButton
+    path: "/apis/widgets.templates.krateo.io/v1beta1/namespaces/azure-pricing-system/buttons/finops-template-panel-button"
+    verb: DELETE
+  - name: deleteCompositionDefinition
+    path: "/apis/core.krateo.io/v1alpha1/namespaces/azure-pricing-system/compositiondefinitions/vm-azure"
+    verb: DELETE

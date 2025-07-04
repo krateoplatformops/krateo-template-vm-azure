@@ -1,0 +1,76 @@
+name: aso-sample
+
+vmSize: Standard_B2s
+vmComputerName: poppy
+vmAdminUsername: userAdmin
+vmPassword: Password123%
+armRegionName: westus3
+resourceGroupName: aso-sample-rg
+
+optimization: "The resource utilization and the proposed optimization for the given resource." # Default text for the optimization panel
+# Webhook configuration, the certificare and the service should match the OPA install
+# Default values match the krateo-installer
+webhook:
+  enabled: true
+  fullnameOverride: mutating-webhook-finopsexamplepricingvmazures
+  # To set annotations on all admissionController resources (Secret/Certificate/Issuer/AdmissionController)
+  # annotations:
+  #   example: value
+
+  # Adds a namespace selector to the admission controller webhook
+  namespaceSelector:
+    matchExpressions:
+    - key: openpolicyagent.org/webhook
+      operator: NotIn
+      values: 
+        - ignore
+
+  # SideEffectClass for the webhook, setting to NoneOnDryRun enables dry-run.
+  # Only None and NoneOnDryRun are permitted for admissionregistration.k8s.io/v1.
+  sideEffect: None
+
+  useHttps: true
+  generatedCerts: true # If this is set to true, the chart will look for the certsSecretRef secret
+  # The webhook lookup will look for the field "caBundle"
+  certsSecretRef:
+    name: opa-kube-mgmt-cert
+    namespace: krateo-system
+  # Otherwise it will use the CA Bundle specified in CA
+  CA: ""
+
+  service:
+    name: opa-kube-mgmt
+    namespace: krateo-system
+    port: 8181
+
+global:
+  tableName: finops
+  compositionResource: finopsexamplepricingvmazures
+  krateoNamespace: krateo-system # This is temporary and will have to be removed when the cdc-chart inspector passing of values functionality is added
+  compositionApiVersion: compositionApiVersion
+  compositionName: compositionName
+  compositionNamespace: compositionNamespace
+  compositionId: compositionId
+  
+portal:
+  enabled: true
+  overview:
+    icon: fa-hand-holding-dollar
+
+# Values for the ExporterScraperConfig, collecting data on the VM created
+metricExporter:
+  timespan: "month" # one of day, month, year, see helper dates for customization
+  interval: "PT15M"
+  metricName: "Percentage CPU"
+  pollingInterval: "1h"
+  scraperDatabaseConfigRef:
+    name: finops-database-handler
+    namespace: krateo-system
+
+# Values for the Moving Window microservice endpoint secret
+policyAdditionalValues:
+  # See here for the format: https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/#schedule-syntax
+  cronJobSchedule: "0 0 * * *" # default: daily
+  optimizationServiceEndpointRef:
+    name: finops-moving-window-microservice-endpoint
+    namespace: azure-pricing-system

@@ -1,0 +1,13 @@
+{{- $rg := lookup "resources.azure.com/v1api20200601" "ResourceGroup" .Release.Namespace .Values.resourceGroupName -}}
+{{- if not $rg -}}
+apiVersion: resources.azure.com/v1api20200601
+kind: ResourceGroup
+metadata:
+  name: {{ .Values.resourceGroupName }}
+  annotations:
+    helm.sh/resource-policy: keep
+spec:
+  location: {{ .Values.armRegionName }}
+  tags:
+    compositionId: {{ .Values.global.compositionId }}
+{{ end }}

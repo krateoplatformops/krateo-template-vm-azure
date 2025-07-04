@@ -1,0 +1,324 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": true,
+  "properties": {
+    "armRegionName": {
+      "default": "westus3",
+      "required": [],
+      "title": "armRegionName",
+      "type": "string"
+    },
+    "resourceGroupName": {
+      "default": "aso-sample-rg",
+      "required": [],
+      "title": "resourceGroupName",
+      "type": "string"
+    },
+    "name": {
+      "default": "aso-sample",
+      "required": [],
+      "title": "name",
+      "type": "string"
+    },
+    "vmAdminUsername": {
+      "default": "userAdmin",
+      "required": [],
+      "title": "vmAdminUsername",
+      "type": "string"
+    },
+    "vmComputerName": {
+      "default": "poppy",
+      "required": [],
+      "title": "vmComputerName",
+      "type": "string"
+    },
+    "vmPassword": {
+      "default": "Password123%",
+      "required": [],
+      "title": "vmPassword",
+      "type": "string"
+    },
+    "vmSize": {
+      "default": "Standard_B2s",
+      "required": [],
+      "title": "vmSize",
+      "type": "string"
+    },
+    "global": {
+      "additionalProperties": true,
+      "properties": {
+        "tableName": {
+          "default": "finops",
+          "required": [],
+          "title": "tableName",
+          "type": "string"
+        },
+        "krateoNamespace": {
+          "default": "krateo-system",
+          "required": [],
+          "title": "krateoNamespace",
+          "type": "string"
+        }
+      },
+      "required": [
+        "tableName",
+        "krateoNamespace"
+      ],
+      "title": "global",
+      "type": "object"
+    },
+    "metricExporter": {
+      "additionalProperties": false,
+      "properties": {
+        "interval": {
+          "default": "PT15M",
+          "required": [],
+          "title": "interval",
+          "type": "string"
+        },
+        "metricName": {
+          "default": "Percentage CPU",
+          "required": [],
+          "title": "metricName",
+          "type": "string"
+        },
+        "pollingInterval": {
+          "default": "1h",
+          "required": [],
+          "title": "pollingInterval",
+          "type": "string"
+        },
+        "scraperDatabaseConfigRef": {
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "default": "finops-database-handler",
+              "required": [],
+              "title": "name",
+              "type": "string"
+            },
+            "namespace": {
+              "default": "krateo-system",
+              "required": [],
+              "title": "namespace",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "title": "scraperDatabaseConfigRef",
+          "type": "object"
+        },
+        "timespan": {
+          "default": "month",
+          "required": [],
+          "title": "timespan",
+          "type": "string"
+        }
+      },
+      "required": [
+        "timespan",
+        "interval",
+        "metricName",
+        "pollingInterval",
+        "scraperDatabaseConfigRef"
+      ],
+      "title": "metricExporter",
+      "type": "object"
+    },
+    "policyAdditionalValues": {
+      "additionalProperties": false,
+      "properties": {
+        "optimizationServiceEndpointRef": {
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "default": "finops-moving-window-microservice-endpoint",
+              "required": [],
+              "title": "name",
+              "type": "string"
+            },
+            "namespace": {
+              "default": "azure-pricing-system",
+              "required": [],
+              "title": "namespace",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "title": "optimizationServiceEndpointRef",
+          "type": "object"
+        },
+          "cronJobSchedule": {
+            "default": "0 * * * *",
+            "required": [],
+            "title": "cronJobSchedule",
+            "type": "string"
+          }
+      },
+      "required": [
+        "optimizationServiceEndpointRef",
+        "cronJobSchedule"
+      ],
+      "title": "policyAdditionalValues",
+      "type": "object"
+    },
+    "optimization": {
+      "default": "The resource utilization and the proposed optimization for the given resource.",
+      "required": [],
+      "title": "optimization",
+      "type": "string"
+    },
+    "webhook": {
+      "additionalProperties": true,
+      "description": "Webhook configuration, the certificare and the service should match the OPA install\nDefault values match the krateo-installer",
+      "properties": {
+        "enabled": {
+          "default": true,
+          "description": "Enable the webhook",
+          "required": [],
+          "title": "enabled",
+          "type": "boolean"
+        },
+        "CA": {
+          "default": "",
+          "description": "Otherwise it will use the CA Bundle specified in CA",
+          "required": [],
+          "title": "CA",
+          "type": "string"
+        },
+        "certsSecretRef": {
+          "additionalProperties": false,
+          "description": "The webhook lookup will look for the field \"caBundle\"",
+          "properties": {
+            "name": {
+              "default": "opa-kube-mgmt-cert",
+              "required": [],
+              "title": "name",
+              "type": "string"
+            },
+            "namespace": {
+              "default": "krateo-system",
+              "required": [],
+              "title": "namespace",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "namespace"
+          ],
+          "title": "certsSecretRef",
+          "type": "object"
+        },
+        "fullnameOverride": {
+          "default": "mutating-webhook-finopsexamplepricingvmazures",
+          "required": [],
+          "title": "fullnameOverride",
+          "type": "string"
+        },
+        "generatedCerts": {
+          "default": true,
+          "required": [],
+          "title": "generatedCerts",
+          "type": "boolean"
+        },
+        "namespaceSelector": {
+            "properties": {
+                "matchExpressions": {
+                    "items": {
+                        "properties": {
+                            "key": {
+                                "type": "string"
+                            },
+                            "operator": {
+                                "type": "string"
+                            },
+                            "values": {
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "type": "array"
+                }
+            },
+            "type": "object"
+        },
+        "service": {
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "default": "opa-kube-mgmt",
+              "required": [],
+              "title": "name",
+              "type": "string"
+            },
+            "namespace": {
+              "default": "krateo-system",
+              "required": [],
+              "title": "namespace",
+              "type": "string"
+            },
+            "port": {
+              "default": 8181,
+              "required": [],
+              "title": "port",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "name",
+            "namespace",
+            "port"
+          ],
+          "title": "service",
+          "type": "object"
+        },
+        "sideEffect": {
+          "default": "None",
+          "description": "SideEffectClass for the webhook, setting to NoneOnDryRun enables dry-run.\nOnly None and NoneOnDryRun are permitted for admissionregistration.k8s.io/v1.",
+          "required": [],
+          "title": "sideEffect",
+          "type": "string"
+        },
+        "useHttps": {
+          "default": true,
+          "required": [],
+          "title": "useHttps",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "fullnameOverride",
+        "sideEffect",
+        "useHttps",
+        "generatedCerts",
+        "service"
+      ],
+      "title": "webhook",
+      "type": "object"
+    }
+  },
+  "required": [
+    "name",
+    "vmSize",
+    "vmComputerName",
+    "vmAdminUsername",
+    "vmPassword",
+    "armRegionName",
+    "resourceGroupName",
+    "optimization",
+    "webhook",
+    "global",
+    "portal",
+    "metricExporter"
+  ],
+  "type": "object"
+}

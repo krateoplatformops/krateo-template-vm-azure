@@ -1,0 +1,24 @@
+apiVersion: network.azure.com/v1api20201101
+kind: VirtualNetwork
+metadata:
+  name: {{ include "vm-azure.fullname" . }}
+spec:
+  location: {{ .Values.armRegionName }}
+  owner:
+    name: {{ .Values.resourceGroupName }}
+  addressSpace:
+    addressPrefixes:
+      - 10.0.0.0/16
+  tags:
+    compositionId: {{ .Values.global.compositionId }}
+---
+apiVersion: network.azure.com/v1api20201101
+kind: VirtualNetworksSubnet
+metadata:
+  name: {{ include "vm-azure.fullname" . }}
+spec:
+  owner:
+    name: {{ include "vm-azure.fullname" . }}
+  addressPrefix: 10.0.0.0/24
+  tags:
+    compositionId: {{ .Values.global.compositionId }}

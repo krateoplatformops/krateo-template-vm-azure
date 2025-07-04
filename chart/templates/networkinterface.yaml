@@ -1,0 +1,18 @@
+apiVersion: network.azure.com/v1api20201101
+kind: NetworkInterface
+metadata:
+  name: {{ include "vm-azure.fullname" . }}
+spec:
+  tags:
+    compositionId: {{ .Values.global.compositionId }}
+  location: {{ .Values.armRegionName }}
+  owner:
+    name: {{ .Values.resourceGroupName }}
+  ipConfigurations:
+    - name: ipconfig1
+      privateIPAllocationMethod: Dynamic
+      subnet:
+        reference:
+          group: network.azure.com
+          kind: VirtualNetworksSubnet
+          name: {{ include "vm-azure.fullname" . }}

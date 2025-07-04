@@ -1,0 +1,63 @@
+kind: Panel
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: finops-template-panel
+  namespace: azure-pricing-system
+  labels:
+    krateo.io/portal-page: templates
+spec:
+  apiRef:
+    name: finopsexamplepricingvmazures-compositiondefinition
+    namespace: azure-pricing-system
+  widgetData:
+    clickActionId: template-click-action
+    footer:
+      - resourceRefId: pricing-panel-button
+      - resourceRefId: template-panel-button
+    tags: 
+      - azure-pricing-system
+      - "0.2.0"
+    icon:
+      name: fa-hand-holding-dollar
+      color: green
+    items:
+      - resourceRefId: template-panel-paragraph
+    title: "FinOps Example Pricing VM Azure"
+    actions:
+      openDrawer:
+        - id: template-click-action
+          resourceRefId: template-form
+          type: openDrawer
+          size: large
+  widgetDataTemplate:
+    - forPath: icon.color
+      expression: ${ .getCompositionDefinition.status.conditions[] | select(.type == "Ready") | if .status == "False" then "orange" elif .status == "True" then "green" else "grey" end }
+    - forPath: headerLeft
+      expression: ${ .getCompositionDefinition.status.conditions[] | select(.type == "Ready") | if .status == "False" then "Ready:False" elif .status == "True" then "Ready:True" end }
+    - forPath: headerRight
+      expression: ${ .getCompositionDefinition.metadata.creationTimestamp }
+  resourcesRefs:
+    - id: template-panel-paragraph
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: finops-template-panel-paragraph
+      namespace: azure-pricing-system
+      resource: paragraphs
+      verb: GET
+    - id: template-panel-button
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: finops-template-panel-button
+      namespace: azure-pricing-system
+      resource: buttons
+      verb: GET
+    - id: pricing-panel-button
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: finops-pricing-panel-button
+      namespace: azure-pricing-system
+      resource: buttons
+      verb: GET
+    - id: template-form
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: finops-template-panel-form
+      namespace: azure-pricing-system
+      resource: forms
+      verb: GET

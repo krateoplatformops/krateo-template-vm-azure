@@ -1,0 +1,42 @@
+{{- $vm := lookup "compute.azure.com/v1api20220301" "VirtualMachine" .Release.Namespace .Values.name }}
+
+{{- if $vm }}
+{{- if eq $vm.status.provisioningState "Succeeded" }}
+{{- if $vm.status.id }}
+{{- $vmId := $vm.status.id }}
+
+{{- $currentDate := now }}
+{{- $backupRange := list .Values.metricExporter.timespan $currentDate.Year $currentDate.Month $currentDate.Day | include "dates.dateRange" }}
+{{- $metricName := .Values.metricExporter.metricName | replace " " "%20" -}}
+{{- $resourceSuffix := printf "/providers/microsoft.insights/metrics?api-version=2023-10-01&metricnames=%s&timespan=%s&interval=%s" $metricName $backupRange .Values.metricExporter.interval }}
+
+{{- $fullName := printf "%s-%s" .Values.name .Values.metricExporter.metricName -}}
+{{- $name := $fullName | lower | replace " " "-" | replace "_" "-" | trunc 63 | trimSuffix "-" -}}
+
+apiVersion: finops.krateo.io/v1
+kind: ExporterScraperConfig
+metadata:
+  name: {{ $name }}
+  namespace: {{ .Values.global.krateoNamespace }}
+spec:
+  exporterConfig:
+    api: 
+      path: {{ printf "%s%s" $vmId $resourceSuffix | quote }}
+      verb: GET
+      endpointRef:
+        name: azure-management-api
+        namespace: {{ .Values.global.krateoNamespace }}
+    metricType: resource
+    pollingInterval: {{ .Values.metricExporter.pollingInterval | quote }}
+    additionalVariables:
+      ResourceId: {{ $vmId }}
+  scraperConfig:
+    pollingInterval: {{ .Values.metricExporter.pollingInterval | quote }}
+    tableName: {{ .Values.global.tableName }}_res
+    scraperDatabaseConfigRef:
+      name: {{ .Values.metricExporter.scraperDatabaseConfigRef.name }}
+      namespace: {{ .Values.metricExporter.scraperDatabaseConfigRef.namespace }}
+
+{{- end }}
+{{- end }}
+{{- end }}

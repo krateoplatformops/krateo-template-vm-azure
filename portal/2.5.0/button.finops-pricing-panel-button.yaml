@@ -1,0 +1,23 @@
+kind: Button
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: finops-pricing-panel-button
+  namespace: azure-pricing-system
+spec:
+  widgetData:
+    icon: fa-solid fa-dollar-sign
+    type: default
+    shape: circle
+    clickActionId: open-pricing-drawer
+    actions:
+      openDrawer:
+        - id: open-pricing-drawer
+          resourceRefId: pricing-information
+          type: openDrawer
+  resourcesRefs:
+    - id: pricing-information
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      resource: panel
+      name: finops-pricing-panel
+      namespace: azure-pricing-system
+      verb: GET

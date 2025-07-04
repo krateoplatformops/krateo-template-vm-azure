@@ -1,0 +1,14 @@
+kind: Paragraph
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: finops-pricing-panel-paragraph
+  namespace: azure-pricing-system
+spec:
+  widgetData:
+   text: "Pricing Information missing"
+  widgetDataTemplate:
+  - expression: ${ .getPricingInformation | "\(to_entries | map(" up to \(.value)$ per \(.key); ") | join("\n "))" }
+    forPath: text
+  apiRef:
+    name: get-pricing-information-frontend
+    namespace: azure-pricing-system

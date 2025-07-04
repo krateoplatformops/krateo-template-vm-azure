@@ -1,0 +1,12 @@
+apiVersion: templates.krateo.io/v1
+kind: RESTAction
+metadata:
+  name: finopsexamplepricingvmazures-compositiondefinition
+  namespace: azure-pricing-system
+spec:
+  api:
+  - name: getCompositionDefinition
+    path: "/apis/core.krateo.io/v1alpha1/namespaces/azure-pricing-system/compositiondefinitions/vm-azure"
+    verb: GET
+    headers:
+    - 'Accept: application/json'

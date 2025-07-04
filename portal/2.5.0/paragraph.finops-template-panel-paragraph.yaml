@@ -1,0 +1,8 @@
+kind: Paragraph
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: finops-template-panel-paragraph
+  namespace: azure-pricing-system
+spec:
+  widgetData:
+    text: This is a card for FinOps Example Pricing for Azure template

@@ -1,0 +1,24 @@
+apiVersion: templates.krateo.io/v1
+kind: RESTAction
+metadata:
+  name: get-pricing-information-frontend
+  namespace: azure-pricing-system
+spec:
+  api:
+  - name: getCompositionDefinition
+    path: "/apis/core.krateo.io/v1alpha1/namespaces/azure-pricing-system/compositiondefinitions/vm-azure"
+    verb: GET
+    headers:
+    - 'Accept: application/json'
+    filter: .metadata.uid
+  - name: getPricingInformation
+    endpointRef: 
+      name: finops-database-handler-endpoint
+      namespace: krateo-system
+    path: "/compute/pricing_frontend"
+    verb: POST
+    payload: |
+      ${ {composition_id: .getCompositionDefinition} }
+    headers:
+    - 'Accept: application/json'
+    - 'Content-Type: application/json'

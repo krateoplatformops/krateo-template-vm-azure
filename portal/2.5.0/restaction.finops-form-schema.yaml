@@ -1,0 +1,12 @@
+apiVersion: templates.krateo.io/v1
+kind: RESTAction
+metadata:
+  name: finops-schema
+  namespace: azure-pricing-system
+spec:
+  api:
+  - headers:
+    - 'Accept: application/json'
+    name: getSchemaNotOrdered
+    path: /api/v1/namespaces/azure-pricing-system/configmaps/finopsexamplepricingvmazures-v0-2-0-jsonschema-configmap
+    verb: GET

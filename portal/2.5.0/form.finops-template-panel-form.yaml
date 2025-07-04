@@ -1,0 +1,38 @@
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Form
+metadata:
+  name: finops-template-panel-form
+  namespace: azure-pricing-system
+spec:
+  widgetData:
+    fieldDescription: inline
+    schema: {}
+    submitActionId: finops-submit-action
+    actions:
+      rest:
+      - id: finops-submit-action
+        onEventNavigateTo:
+            eventReason: "CompositionCreated"
+            url: "/compositions/${metadata.namespace}/${metadata.name}"
+            timeout: 50
+        payloadToOverride:
+        - name: metadata.name
+          value: ${ name }
+        - name: metadata.namespace
+          value: ${ "azure-pricing-system" }
+        payloadKey: spec
+        resourceRefId: resource-ref-1
+        type: rest
+  apiRef:
+    name: finops-schema
+    namespace: azure-pricing-system
+  resourcesRefs:
+  - apiVersion: composition.krateo.io/v0-2-0
+    id: resource-ref-1
+    name: new-app
+    namespace: azure-pricing-system
+    resource: finopsexamplepricingvmazures
+    verb: POST
+  widgetDataTemplate:
+  - expression: ${ .getSchemaNotOrdered.data["values.schema.json"] }
+    forPath: stringSchema

@@ -1,0 +1,17 @@
+kind: Panel
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: finops-pricing-panel
+  namespace: azure-pricing-system
+spec: 
+  widgetData:
+    title: Pricing Information
+    items:
+      - resourceRefId: paragraph
+  resourcesRefs:
+    - id: paragraph
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: finops-pricing-panel-paragraph
+      namespace: azure-pricing-system
+      resource: paragraphs
+      verb: GET
