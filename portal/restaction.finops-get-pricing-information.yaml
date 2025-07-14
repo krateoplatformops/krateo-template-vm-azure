@@ -15,7 +15,7 @@ spec:
     endpointRef: 
       name: finops-database-handler-endpoint
       namespace: krateo-system
-    path: "/compute/pricing_frontend"
+    path: "/compute/pricingfrontend"
     verb: POST
     payload: |
       ${ {composition_id: .getCompositionDefinition} }
