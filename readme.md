@@ -161,7 +161,7 @@ spec:
   chart:
     repo: vm-azure
     url: https://charts.krateo.io
-    version: "0.1.0"
+    version: "0.1.1"
 EOF
 ```
 
