@@ -48,11 +48,23 @@
       "additionalProperties": true,
       "description": "Webhook configuration, the certificare and the service should match the OPA install. Default values match the krateo-installer.",
       "properties": {
-        "CA": {
+        "enabled": {
           "default": true,
-          "description": "CA bundle for the HTTPS TLS connection to the webhook.",
-          "title": "CA",
-          "type": "string"
+          "description": "Enable the webhook dependency (enable/disable OPA policies).",
+          "title": "enabled",
+          "type": "boolean"
+        },
+        "useHttps": {
+          "default": true,
+          "description": "Use TLS encryption for webhook calls.",
+          "title": "useHttps",
+          "type": "boolean"
+        },
+        "generatedCerts": {
+          "default": true,
+          "description": "If set to true, the chart will look for the certsSecretRef secret, otherwise, it will use the \"CA\" field.",
+          "title": "generatedCerts",
+          "type": "boolean"
         },
         "certsSecretRef": {
           "additionalProperties": false,
@@ -78,23 +90,17 @@
           "title": "certsSecretRef",
           "type": "object"
         },
-        "enabled": {
+        "CA": {
           "default": true,
-          "description": "Enable the webhook dependency (enable/disable OPA policies).",
-          "title": "enabled",
-          "type": "boolean"
+          "description": "CA bundle for the HTTPS TLS connection to the webhook.",
+          "title": "CA",
+          "type": "string"
         },
         "fullnameOverride": {
           "default": "mutating-webhook-finopsexamplepricingvmazures",
           "description": "Name of the webhook. Suggested to include the name of the resource for this composition.",
           "title": "fullnameOverride",
           "type": "string"
-        },
-        "generatedCerts": {
-          "default": true,
-          "description": "If set to true, the chart will look for the certsSecretRef secret, otherwise, it will use the \"CA\" field.",
-          "title": "generatedCerts",
-          "type": "boolean"
         },
         "namespaceSelector": {
           "additionalProperties": false,
@@ -114,7 +120,8 @@
                       "In",
                       "NotIn",
                       "Exists"
-                    ]
+                    ],
+                    "type": "string"
                   },
                   "values": {
                     "description": "Values to match selector to.",
@@ -171,13 +178,8 @@
             "None",
             "NoneOnDryRun"
           ],
-          "title": "sideEffect"
-        },
-        "useHttps": {
-          "default": true,
-          "description": "Use TLS encryption for webhook calls.",
-          "title": "useHttps",
-          "type": "boolean"
+          "title": "sideEffect",
+          "type": "string"
         }
       },
       "required": [
@@ -197,6 +199,17 @@
       "additionalProperties": false,
       "description": "Values for the ExporterScraperConfig, collecting usage metrics on the VM created.",
       "properties": {
+        "timespan": {
+          "default": "month",
+          "description": "Timeframe to gather usage metrics from the Virtual Machine for.",
+          "enum": [
+            "day",
+            "month",
+            "year"
+          ],
+          "title": "timespan",
+          "type": "string"
+        },
         "interval": {
           "default": "PT15M",
           "description": "Granularity to gather usage metrics from the Virtual Machine for.",
@@ -209,7 +222,8 @@
             "PT12H",
             "P1D"
           ],
-          "title": "interval"
+          "title": "interval",
+          "type": "string"
         },
         "metricName": {
           "default": "Percentage CPU",
@@ -217,7 +231,8 @@
           "enum": [
             "Percentage CPU"
           ],
-          "title": "metricName"
+          "title": "metricName",
+          "type": "string"
         },
         "pollingInterval": {
           "default": "1h",
@@ -248,16 +263,6 @@
           ],
           "title": "scraperDatabaseConfigRef",
           "type": "object"
-        },
-        "timespan": {
-          "default": "month",
-          "description": "Timeframe to gather usage metrics from the Virtual Machine for.",
-          "enum": [
-            "day",
-            "month",
-            "year"
-          ],
-          "title": "timespan"
         }
       },
       "required": [
