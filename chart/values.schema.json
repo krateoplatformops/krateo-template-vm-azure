@@ -1,208 +1,72 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "additionalProperties": true,
+  "additionalProperties": false,
   "properties": {
-    "armRegionName": {
-      "default": "westus3",
-      "required": [],
-      "title": "armRegionName",
+    "name": {
+      "default": "aso-sample",
+      "description": "The name of the composition and Virtual Machine.",
+      "title": "name",
       "type": "string"
     },
     "resourceGroupName": {
       "default": "aso-sample-rg",
-      "required": [],
+      "description": "The Resource Group to create the Virtual Machine in.",
       "title": "resourceGroupName",
-      "type": "string"
-    },
-    "name": {
-      "default": "aso-sample",
-      "required": [],
-      "title": "name",
-      "type": "string"
-    },
-    "vmAdminUsername": {
-      "default": "userAdmin",
-      "required": [],
-      "title": "vmAdminUsername",
       "type": "string"
     },
     "vmComputerName": {
       "default": "poppy",
-      "required": [],
+      "description": "The name of the computer inside of the Virtual Machine.",
       "title": "vmComputerName",
+      "type": "string"
+    },
+    "vmAdminUsername": {
+      "default": "userAdmin",
+      "description": "The username of the computer inside of the Virtual Machine.",
+      "title": "vmAdminUsername",
       "type": "string"
     },
     "vmPassword": {
       "default": "Password123%",
-      "required": [],
+      "description": "The password of the computer inside of the Virtual Machine.",
       "title": "vmPassword",
       "type": "string"
     },
     "vmSize": {
       "default": "Standard_B2s",
-      "required": [],
+      "description": "The size of the Virtual Machine.",
       "title": "vmSize",
       "type": "string"
     },
-    "global": {
-      "additionalProperties": true,
-      "properties": {
-        "tableName": {
-          "default": "finops",
-          "required": [],
-          "title": "tableName",
-          "type": "string"
-        },
-        "krateoNamespace": {
-          "default": "krateo-system",
-          "required": [],
-          "title": "krateoNamespace",
-          "type": "string"
-        }
-      },
-      "required": [
-        "tableName",
-        "krateoNamespace"
-      ],
-      "title": "global",
-      "type": "object"
-    },
-    "metricExporter": {
-      "additionalProperties": false,
-      "properties": {
-        "interval": {
-          "default": "PT15M",
-          "required": [],
-          "title": "interval",
-          "type": "string"
-        },
-        "metricName": {
-          "default": "Percentage CPU",
-          "required": [],
-          "title": "metricName",
-          "type": "string"
-        },
-        "pollingInterval": {
-          "default": "1h",
-          "required": [],
-          "title": "pollingInterval",
-          "type": "string"
-        },
-        "scraperDatabaseConfigRef": {
-          "additionalProperties": false,
-          "properties": {
-            "name": {
-              "default": "finops-database-handler",
-              "required": [],
-              "title": "name",
-              "type": "string"
-            },
-            "namespace": {
-              "default": "krateo-system",
-              "required": [],
-              "title": "namespace",
-              "type": "string"
-            }
-          },
-          "required": [
-            "name"
-          ],
-          "title": "scraperDatabaseConfigRef",
-          "type": "object"
-        },
-        "timespan": {
-          "default": "month",
-          "required": [],
-          "title": "timespan",
-          "type": "string"
-        }
-      },
-      "required": [
-        "timespan",
-        "interval",
-        "metricName",
-        "pollingInterval",
-        "scraperDatabaseConfigRef"
-      ],
-      "title": "metricExporter",
-      "type": "object"
-    },
-    "policyAdditionalValues": {
-      "additionalProperties": false,
-      "properties": {
-        "optimizationServiceEndpointRef": {
-          "additionalProperties": false,
-          "properties": {
-            "name": {
-              "default": "finops-moving-window-microservice-endpoint",
-              "required": [],
-              "title": "name",
-              "type": "string"
-            },
-            "namespace": {
-              "default": "azure-pricing-system",
-              "required": [],
-              "title": "namespace",
-              "type": "string"
-            }
-          },
-          "required": [
-            "name"
-          ],
-          "title": "optimizationServiceEndpointRef",
-          "type": "object"
-        },
-          "cronJobSchedule": {
-            "default": "0 * * * *",
-            "required": [],
-            "title": "cronJobSchedule",
-            "type": "string"
-          }
-      },
-      "required": [
-        "optimizationServiceEndpointRef",
-        "cronJobSchedule"
-      ],
-      "title": "policyAdditionalValues",
-      "type": "object"
-    },
-    "optimization": {
-      "default": "The resource utilization and the proposed optimization for the given resource.",
-      "required": [],
-      "title": "optimization",
+    "armRegionName": {
+      "default": "westus3",
+      "description": "The region to create the Virtual Machine in.",
+      "title": "armRegionName",
       "type": "string"
     },
     "webhook": {
-      "additionalProperties": true,
-      "description": "Webhook configuration, the certificare and the service should match the OPA install\nDefault values match the krateo-installer",
+      "additionalProperties": false,
+      "description": "Webhook configuration, the certificare and the service should match the OPA install. Default values match the krateo-installer.",
       "properties": {
-        "enabled": {
-          "default": true,
-          "description": "Enable the webhook",
-          "required": [],
-          "title": "enabled",
-          "type": "boolean"
-        },
         "CA": {
-          "default": "",
-          "description": "Otherwise it will use the CA Bundle specified in CA",
-          "required": [],
+          "default": true,
+          "description": "CA bundle for the HTTPS TLS connection to the webhook.",
           "title": "CA",
           "type": "string"
         },
         "certsSecretRef": {
           "additionalProperties": false,
-          "description": "The webhook lookup will look for the field \"caBundle\"",
+          "description": "Object reference to the certificate bundle. The webhook lookup will look for the field \"caBundle\".",
           "properties": {
             "name": {
               "default": "opa-kube-mgmt-cert",
-              "required": [],
+              "description": "The name of the certificate secret.",
               "title": "name",
               "type": "string"
             },
             "namespace": {
               "default": "krateo-system",
-              "required": [],
+              "description": "The namespace of the certificate secret.",
               "title": "namespace",
               "type": "string"
             }
@@ -214,61 +78,98 @@
           "title": "certsSecretRef",
           "type": "object"
         },
+        "enabled": {
+          "default": true,
+          "description": "Enable the webhook dependency (enable/disable OPA policies).",
+          "title": "enabled",
+          "type": "boolean"
+        },
         "fullnameOverride": {
           "default": "mutating-webhook-finopsexamplepricingvmazures",
-          "required": [],
+          "description": "Name of the webhook. Suggested to include the name of the resource for this composition.",
           "title": "fullnameOverride",
           "type": "string"
         },
         "generatedCerts": {
           "default": true,
-          "required": [],
+          "description": "If set to true, the chart will look for the certsSecretRef secret, otherwise, it will use the \"CA\" field.",
           "title": "generatedCerts",
           "type": "boolean"
         },
         "namespaceSelector": {
-            "properties": {
-                "matchExpressions": {
-                    "items": {
-                        "properties": {
-                            "key": {
-                                "type": "string"
-                            },
-                            "operator": {
-                                "type": "string"
-                            },
-                            "values": {
-                                "items": {
-                                    "type": "string"
-                                },
-                                "type": "array"
+          "additionalProperties": false,
+          "description": "Adds a namespace selector to the admission controller webhook.",
+          "properties": {
+            "matchExpressions": {
+              "description": "Match expression for the namespace selector.",
+              "items": {
+                "anyOf": [
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "key": {
+                        "default": "openpolicyagent.org/webhook",
+                        "title": "key",
+                        "type": "string"
+                      },
+                      "operator": {
+                        "default": "NotIn",
+                        "description": "Operator type.",
+                        "enum": [
+                          "In",
+                          "NotIn",
+                          "Exists"
+                        ],
+                        "title": "operator"
+                      },
+                      "values": {
+                        "description": "Values to match selector to.",
+                        "items": {
+                          "anyOf": [
+                            {
+                              "type": "string"
                             }
+                          ]
                         },
-                        "type": "object"
+                        "title": "values",
+                        "type": "array"
+                      }
                     },
-                    "type": "array"
-                }
-            },
-            "type": "object"
+                    "required": [
+                      "key",
+                      "operator",
+                      "values"
+                    ],
+                    "type": "object"
+                  }
+                ]
+              },
+              "title": "matchExpressions",
+              "type": "array"
+            }
+          },
+          "title": "namespaceSelector",
+          "type": "object"
         },
         "service": {
           "additionalProperties": false,
+          "description": "OPA service.",
           "properties": {
             "name": {
               "default": "opa-kube-mgmt",
-              "required": [],
+              "description": "The name of the service object.",
               "title": "name",
               "type": "string"
             },
             "namespace": {
               "default": "krateo-system",
-              "required": [],
+              "description": "The namespace of the service object.",
               "title": "namespace",
               "type": "string"
             },
             "port": {
               "default": 8181,
-              "required": [],
+              "description": "The port of the service object.",
               "title": "port",
               "type": "integer"
             }
@@ -283,27 +184,213 @@
         },
         "sideEffect": {
           "default": "None",
-          "description": "SideEffectClass for the webhook, setting to NoneOnDryRun enables dry-run.\nOnly None and NoneOnDryRun are permitted for admissionregistration.k8s.io/v1.",
-          "required": [],
-          "title": "sideEffect",
-          "type": "string"
+          "description": "SideEffectClass for the webhook, setting to NoneOnDryRun enables dry-run.",
+          "enum": [
+            "None",
+            "NoneOnDryRun"
+          ],
+          "title": "sideEffect"
         },
         "useHttps": {
           "default": true,
-          "required": [],
+          "description": "Use TLS encryption for webhook calls.",
           "title": "useHttps",
           "type": "boolean"
         }
       },
       "required": [
+        "enabled",
         "fullnameOverride",
         "sideEffect",
         "useHttps",
         "generatedCerts",
+        "certsSecretRef",
+        "CA",
         "service"
       ],
       "title": "webhook",
       "type": "object"
+    },
+    "metricExporter": {
+      "additionalProperties": false,
+      "description": "Values for the ExporterScraperConfig, collecting usage metrics on the VM created.",
+      "properties": {
+        "interval": {
+          "default": "PT15M",
+          "description": "Granularity to gather usage metrics from the Virtual Machine for.",
+          "enum": [
+            "PT1M",
+            "PT15M",
+            "PT30M",
+            "PT1H",
+            "PT6H",
+            "PT12H",
+            "P1D"
+          ],
+          "title": "interval"
+        },
+        "metricName": {
+          "default": "Percentage CPU",
+          "description": "The name of the metric to gather from the Virtual Machine.",
+          "enum": [
+            "Percentage CPU"
+          ],
+          "title": "metricName"
+        },
+        "pollingInterval": {
+          "default": "1h",
+          "description": "Polling interval to update metrics, formatted as hh:mm.",
+          "title": "pollingInterval",
+          "type": "string"
+        },
+        "scraperDatabaseConfigRef": {
+          "additionalProperties": false,
+          "description": "Database configuration to connect to (cratedb).",
+          "properties": {
+            "name": {
+              "default": "finops-database-handler",
+              "description": "Name of the DatabaseConfig object.",
+              "title": "name",
+              "type": "string"
+            },
+            "namespace": {
+              "default": "krateo-system",
+              "description": "Namespace of the DatabaseConfig object.",
+              "title": "namespace",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "namespace"
+          ],
+          "title": "scraperDatabaseConfigRef",
+          "type": "object"
+        },
+        "timespan": {
+          "default": "month",
+          "description": "Timeframe to gather usage metrics from the Virtual Machine for.",
+          "enum": [
+            "day",
+            "month",
+            "year"
+          ],
+          "title": "timespan"
+        }
+      },
+      "required": [
+        "timespan",
+        "interval",
+        "metricName",
+        "pollingInterval",
+        "scraperDatabaseConfigRef"
+      ],
+      "title": "metricExporter",
+      "type": "object"
+    },
+    "policyAdditionalValues": {
+      "additionalProperties": false,
+      "description": "Values for the Moving Window microservice endpoint secret.",
+      "properties": {
+        "cronJobSchedule": {
+          "default": "0 0 * * *",
+          "description": "Polling rate of the optimization policy. See https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/#schedule-syntax for details.",
+          "title": "cronJobSchedule",
+          "type": "string"
+        },
+        "optimizationServiceEndpointRef": {
+          "additionalProperties": false,
+          "description": "Moving window microservice endpoint.",
+          "properties": {
+            "name": {
+              "default": "finops-moving-window-microservice-endpoint",
+              "description": "Name of the Moving window microservice endpoint.",
+              "title": "name",
+              "type": "string"
+            },
+            "namespace": {
+              "default": "krateo-system",
+              "description": "Namespace of the Moving window microservice endpoint.",
+              "title": "namespace",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "namespace"
+          ],
+          "title": "optimizationServiceEndpointRef",
+          "type": "object"
+        }
+      },
+      "required": [
+        "cronJobSchedule",
+        "optimizationServiceEndpointRef"
+      ],
+      "title": "policyAdditionalValues",
+      "type": "object"
+    },
+    "global": {
+      "additionalProperties": true,
+      "description": "Global balues passed to the chart's dependencies.",
+      "properties": {
+        "krateoNamespace": {
+          "default": "krateo-system",
+          "description": "Namespace where Krateo is installed.",
+          "title": "krateoNamespace",
+          "type": "string"
+        },
+        "tableName": {
+          "default": "finops",
+          "description": "Name of the Table in the FinOps database to get costs and metrics from.",
+          "title": "tableName",
+          "type": "string"
+        }
+      },
+      "required": [
+        "tableName",
+        "krateoNamespace"
+      ],
+      "title": "global",
+      "type": "object"
+    },
+    "portal": {
+      "additionalProperties": true,
+      "description": "Enable or disable the portal for the composition.",
+      "properties": {
+        "enabled": {
+          "default": true,
+          "title": "enabled",
+          "type": "boolean"
+        },
+        "overview": {
+          "additionalProperties": false,
+          "properties": {
+            "icon": {
+              "default": "fa-hand-holding-dollar",
+              "title": "icon",
+              "type": "string"
+            }
+          },
+          "required": [
+            "icon"
+          ],
+          "title": "overview",
+          "type": "object"
+        }
+      },
+      "required": [
+        "enabled",
+        "overview"
+      ],
+      "title": "portal",
+      "type": "object"
+    },
+    "optimization": {
+      "default": "The resource utilization and the proposed optimization for the given resource.",
+      "description": "The string for the table in the FinOps Tab of the portal",
+      "title": "optimization",
+      "type": "string"
     }
   },
   "required": [
@@ -314,11 +401,11 @@
     "vmPassword",
     "armRegionName",
     "resourceGroupName",
-    "optimization",
     "webhook",
     "global",
     "portal",
-    "metricExporter"
+    "metricExporter",
+    "policyAdditionalValues"
   ],
   "type": "object"
 }

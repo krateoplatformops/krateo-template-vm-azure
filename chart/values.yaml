@@ -1,76 +1,368 @@
+# @schema
+# type: string
+# required: true
+# description: The name of the composition and Virtual Machine.
+# default: aso-sample
+# @schema
 name: aso-sample
-
+# @schema
+# type: string
+# required: true
+# description: The size of the Virtual Machine.
+# default: Standard_B2s
+# @schema
 vmSize: Standard_B2s
+# @schema
+# type: string
+# required: true
+# description: The name of the computer inside of the Virtual Machine.
+# default: poppy
+# @schema
 vmComputerName: poppy
+# @schema
+# type: string
+# required: true
+# description: The username of the computer inside of the Virtual Machine.
+# default: userAdmin
+# @schema
 vmAdminUsername: userAdmin
+# @schema
+# type: string
+# required: true
+# description: The password of the computer inside of the Virtual Machine.
+# default: Password123%
+# @schema
 vmPassword: Password123%
+# @schema
+# type: string
+# required: true
+# description: The region to create the Virtual Machine in.
+# default: westus3
+# @schema
 armRegionName: westus3
+# @schema
+# type: string
+# required: true
+# description: The Resource Group to create the Virtual Machine in.
+# default: aso-sample-rg
+# @schema
 resourceGroupName: aso-sample-rg
 
-optimization: "The resource utilization and the proposed optimization for the given resource." # Default text for the optimization panel
-# Webhook configuration, the certificare and the service should match the OPA install
-# Default values match the krateo-installer
+# @schema
+# type: object
+# required: true
+# description: Webhook configuration, the certificare and the service should match the OPA install. Default values match the krateo-installer.
+# @schema
 webhook:
+  # @schema
+  # type: boolean
+  # required: true
+  # description: Enable the webhook dependency (enable/disable OPA policies).
+  # default: true
+  # @schema
   enabled: true
+  # @schema
+  # type: string
+  # required: true
+  # description: Name of the webhook. Suggested to include the name of the resource for this composition.
+  # default: mutating-webhook-finopsexamplepricingvmazures
+  # @schema
   fullnameOverride: mutating-webhook-finopsexamplepricingvmazures
+
   # To set annotations on all admissionController resources (Secret/Certificate/Issuer/AdmissionController)
   # annotations:
   #   example: value
 
-  # Adds a namespace selector to the admission controller webhook
+  
+  # @schema
+  # type: object
+  # required: false
+  # description: Adds a namespace selector to the admission controller webhook.
+  # @schema
   namespaceSelector:
+    # @schema
+    # type: array
+    # required: false
+    # description: Match expression for the namespace selector.
+    # @schema
     matchExpressions:
+      # @schema
+      # type: string
+      # required: true
+      # description: Label key.
+      # default: openpolicyagent.org/webhook
+      # @schema
     - key: openpolicyagent.org/webhook
+      # @schema
+      # enum:
+      # - In
+      # - NotIn
+      # - Exists
+      # required: true
+      # description: Operator type.
+      # default: NotIn
+      # @schema
       operator: NotIn
+      # @schema
+      # type: array
+      # required: true
+      # description: Values to match selector to.
+      # @schema
       values: 
+        # @schema
+        # type: string
+        # required: true
+        # description: Value
+        # @schema
         - ignore
 
-  # SideEffectClass for the webhook, setting to NoneOnDryRun enables dry-run.
-  # Only None and NoneOnDryRun are permitted for admissionregistration.k8s.io/v1.
+  # @schema
+  # enum:
+  # - None
+  # - NoneOnDryRun
+  # required: true
+  # description: SideEffectClass for the webhook, setting to NoneOnDryRun enables dry-run.
+  # default: None
+  # @schema
   sideEffect: None
 
+  # @schema
+  # type: boolean
+  # required: true
+  # description: Use TLS encryption for webhook calls.
+  # default: true
+  # @schema
   useHttps: true
-  generatedCerts: true # If this is set to true, the chart will look for the certsSecretRef secret
-  # The webhook lookup will look for the field "caBundle"
+  # @schema
+  # type: boolean
+  # required: true
+  # description: If set to true, the chart will look for the certsSecretRef secret, otherwise, it will use the "CA" field.
+  # default: true
+  # @schema
+  generatedCerts: true
+  # @schema
+  # type: object
+  # required: true
+  # description: Object reference to the certificate bundle. The webhook lookup will look for the field "caBundle".
+  # @schema
   certsSecretRef:
+    # @schema
+    # type: string
+    # required: true
+    # description: The name of the certificate secret.
+    # default: opa-kube-mgmt-cert
+    # @schema
     name: opa-kube-mgmt-cert
+    # @schema
+    # type: string
+    # required: true
+    # description: The namespace of the certificate secret.
+    # default: krateo-system
+    # @schema
     namespace: krateo-system
-  # Otherwise it will use the CA Bundle specified in CA
+
+  # @schema
+  # type: string
+  # required: true
+  # description: CA bundle for the HTTPS TLS connection to the webhook.
+  # default: true
+  # @schema
   CA: ""
 
+  # @schema
+  # type: object
+  # required: true
+  # description: OPA service.
+  # @schema
   service:
+    # @schema
+    # type: string
+    # required: true
+    # description: The name of the service object.
+    # default: opa-kube-mgmt
+    # @schema
     name: opa-kube-mgmt
+    # @schema
+    # type: string
+    # required: true
+    # description: The namespace of the service object.
+    # default: krateo-system
+    # @schema
     namespace: krateo-system
+    # @schema
+    # type: integer
+    # required: true
+    # description: The port of the service object.
+    # default: 8181
+    # @schema
     port: 8181
 
+# @schema
+# type: object
+# required: true
+# description: Global balues passed to the chart's dependencies.
+# additionalProperties: true
+# @schema
 global:
+  # @schema
+  # type: string
+  # required: true
+  # description: Name of the Table in the FinOps database to get costs and metrics from.
+  # default: finops
+  # @schema
   tableName: finops
   compositionResource: finopsexamplepricingvmazures
-  krateoNamespace: krateo-system # This is temporary and will have to be removed when the cdc-chart inspector passing of values functionality is added
+  # @schema
+  # type: string
+  # required: true
+  # description: Namespace where Krateo is installed. 
+  # default: krateo-system
+  # @schema
+  # This is temporary and will have to be removed when the cdc-chart inspector passing of values functionality is added
+  krateoNamespace: krateo-system
+  # @schema
+  # type: string
+  # required: false
+  # default: compositionApiVersion
+  # @schema
   compositionApiVersion: compositionApiVersion
+  # @schema
+  # type: string
+  # required: false
+  # default: compositionName
+  # @schema
   compositionName: compositionName
+  # @schema
+  # type: string
+  # required: false
+  # default: compositionNamespace
+  # @schema
   compositionNamespace: compositionNamespace
+  # @schema
+  # type: string
+  # required: false
+  # default: compositionId
+  # @schema
   compositionId: compositionId
-  
+
+
+# @schema
+# type: object
+# required: true
+# description: Enable or disable the portal for the composition.
+# additionalProperties: true
+# @schema
 portal:
   enabled: true
   overview:
     icon: fa-hand-holding-dollar
 
-# Values for the ExporterScraperConfig, collecting data on the VM created
+
+
+# @schema
+# type: object
+# required: true
+# description: Values for the ExporterScraperConfig, collecting usage metrics on the VM created.
+# @schema
 metricExporter:
+  # @schema
+  # enum:
+  # - day
+  # - month
+  # - year
+  # required: true
+  # description: Timeframe to gather usage metrics from the Virtual Machine for.
+  # default: month
+  # @schema
   timespan: "month" # one of day, month, year, see helper dates for customization
+  # @schema
+  # enum:
+  # - PT1M
+  # - PT15M
+  # - PT30M
+  # - PT1H
+  # - PT6H
+  # - PT12H
+  # - P1D
+  # required: true
+  # description: Granularity to gather usage metrics from the Virtual Machine for.
+  # default: PT15M
+  # @schema
   interval: "PT15M"
+  # @schema
+  # enum:
+  # - Percentage CPU
+  # required: true
+  # description: The name of the metric to gather from the Virtual Machine.
+  # default: Percentage CPU
+  # @schema
   metricName: "Percentage CPU"
+  # @schema
+  # type: string
+  # required: true
+  # description: Polling interval to update metrics, formatted as hh:mm.
+  # default: 1h
+  # @schema
   pollingInterval: "1h"
+  # @schema
+  # type: object
+  # required: true
+  # description: Database configuration to connect to (cratedb).
+  # @schema
   scraperDatabaseConfigRef:
+    # @schema
+    # type: string
+    # required: true
+    # description: Name of the DatabaseConfig object.
+    # default: finops-database-handler
+    # @schema
     name: finops-database-handler
+    # @schema
+    # type: string
+    # required: true
+    # description: Namespace of the DatabaseConfig object.
+    # default: krateo-system
+    # @schema
     namespace: krateo-system
 
-# Values for the Moving Window microservice endpoint secret
+# @schema
+# type: object
+# required: true
+# description: Values for the Moving Window microservice endpoint secret.
+# @schema
 policyAdditionalValues:
-  # See here for the format: https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/#schedule-syntax
+  # @schema
+  # type: string
+  # required: true
+  # description: Polling rate of the optimization policy. See https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/#schedule-syntax for details.
+  # default: 0 0 * * *
+  # @schema
   cronJobSchedule: "0 0 * * *" # default: daily
+  # @schema
+  # type: object
+  # required: true
+  # description: Moving window microservice endpoint.
+  # @schema
   optimizationServiceEndpointRef:
+    # @schema
+    # type: string
+    # required: true
+    # description: Name of the Moving window microservice endpoint.
+    # default: finops-moving-window-microservice-endpoint
+    # @schema
     name: finops-moving-window-microservice-endpoint
+    # @schema
+    # type: string
+    # required: true
+    # description: Namespace of the Moving window microservice endpoint.
+    # default: krateo-system
+    # @schema
     namespace: azure-pricing-system
+
+# @schema
+# type: string
+# required: false
+# description: The string for the table in the FinOps Tab of the portal
+# @schema
+# Default text for the optimization panel
+optimization: "The resource utilization and the proposed optimization for the given resource."
