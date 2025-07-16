@@ -103,46 +103,28 @@
             "matchExpressions": {
               "description": "Match expression for the namespace selector.",
               "items": {
-                "anyOf": [
-                  {
-                    "additionalProperties": false,
-                    "properties": {
-                      "key": {
-                        "default": "openpolicyagent.org/webhook",
-                        "title": "key",
-                        "type": "string"
-                      },
-                      "operator": {
-                        "default": "NotIn",
-                        "description": "Operator type.",
-                        "enum": [
-                          "In",
-                          "NotIn",
-                          "Exists"
-                        ],
-                        "title": "operator"
-                      },
-                      "values": {
-                        "description": "Values to match selector to.",
-                        "items": {
-                          "anyOf": [
-                            {
-                              "type": "string"
-                            }
-                          ]
-                        },
-                        "title": "values",
-                        "type": "array"
-                      }
+                "properties": {
+                  "key": {
+                    "description": "Label key.",
+                    "type": "string"
+                  },
+                  "operator": {
+                    "description": "Operator type.",
+                    "enum": [
+                      "In",
+                      "NotIn",
+                      "Exists"
+                    ]
+                  },
+                  "values": {
+                    "description": "Values to match selector to.",
+                    "items": {
+                      "type": "string"
                     },
-                    "required": [
-                      "key",
-                      "operator",
-                      "values"
-                    ],
-                    "type": "object"
+                    "type": "array"
                   }
-                ]
+                },
+                "type": "object"
               },
               "title": "matchExpressions",
               "type": "array"

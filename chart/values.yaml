@@ -84,36 +84,31 @@ webhook:
     # type: array
     # required: false
     # description: Match expression for the namespace selector.
+    # items: 
+    #   type: object
+    #   properties: 
+    #     operator:
+    #       enum:
+    #       - In
+    #       - NotIn
+    #       - Exists
+    #       required: true
+    #       description: Operator type.
+    #     key:
+    #       type: string
+    #       description: Label key.
+    #       required: true
+    #     values:
+    #       type: array
+    #       description: Values to match selector to.
+    #       required: true
+    #       items:
+    #         type: string
     # @schema
     matchExpressions:
-      # @schema
-      # type: string
-      # required: true
-      # description: Label key.
-      # default: openpolicyagent.org/webhook
-      # @schema
     - key: openpolicyagent.org/webhook
-      # @schema
-      # enum:
-      # - In
-      # - NotIn
-      # - Exists
-      # required: true
-      # description: Operator type.
-      # default: NotIn
-      # @schema
       operator: NotIn
-      # @schema
-      # type: array
-      # required: true
-      # description: Values to match selector to.
-      # @schema
       values: 
-        # @schema
-        # type: string
-        # required: true
-        # description: Value
-        # @schema
         - ignore
 
   # @schema
