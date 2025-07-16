@@ -1,7 +1,7 @@
 apiVersion: templates.krateo.io/v1
 kind: RESTAction
 metadata:
-  name: finopsexamplepricingvmazures-compositiondefinition
+  name: vmazures-compositiondefinition
   namespace: azure-pricing-system
 spec:
   api:

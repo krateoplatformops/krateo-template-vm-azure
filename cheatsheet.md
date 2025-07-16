@@ -266,7 +266,7 @@ To configure the webhook you can add the following to your values.yaml file:
 # Default values match the krateo-installer
 webhook:
   enabled: true
-  fullnameOverride: mutating-webhook-finopsexamplepricingvmazures
+  fullnameOverride: mutating-webhook-vmazures
   # To set annotations on all admissionController resources (Secret/Certificate/Issuer/AdmissionController)
   # annotations:
   #   example: value

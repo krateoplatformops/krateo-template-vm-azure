@@ -65,9 +65,9 @@ webhook:
   # type: string
   # required: true
   # description: Name of the webhook. Suggested to include the name of the resource for this composition.
-  # default: mutating-webhook-finopsexamplepricingvmazures
+  # default: mutating-webhook-vmazures
   # @schema
-  fullnameOverride: mutating-webhook-finopsexamplepricingvmazures
+  fullnameOverride: mutating-webhook-vmazures
 
   # To set annotations on all admissionController resources (Secret/Certificate/Issuer/AdmissionController)
   # annotations:
@@ -206,7 +206,7 @@ global:
   # default: finops
   # @schema
   tableName: finops
-  compositionResource: finopsexamplepricingvmazures
+  compositionResource: vmazures
   # @schema
   # type: string
   # required: true

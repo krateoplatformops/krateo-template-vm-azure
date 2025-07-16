@@ -97,7 +97,7 @@
           "type": "string"
         },
         "fullnameOverride": {
-          "default": "mutating-webhook-finopsexamplepricingvmazures",
+          "default": "mutating-webhook-vmazures",
           "description": "Name of the webhook. Suggested to include the name of the resource for this composition.",
           "title": "fullnameOverride",
           "type": "string"
