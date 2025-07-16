@@ -158,9 +158,8 @@ webhook:
 
   # @schema
   # type: string
-  # required: true
+  # required: false
   # description: CA bundle for the HTTPS TLS connection to the webhook.
-  # default: true
   # @schema
   CA: ""
 

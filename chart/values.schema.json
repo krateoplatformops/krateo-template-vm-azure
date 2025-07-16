@@ -91,7 +91,6 @@
           "type": "object"
         },
         "CA": {
-          "default": true,
           "description": "CA bundle for the HTTPS TLS connection to the webhook.",
           "title": "CA",
           "type": "string"
@@ -189,7 +188,6 @@
         "useHttps",
         "generatedCerts",
         "certsSecretRef",
-        "CA",
         "service"
       ],
       "title": "webhook",
