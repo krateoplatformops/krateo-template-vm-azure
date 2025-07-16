@@ -12,6 +12,8 @@ For `Krateo 2.4.3`, install [this composition](https://github.com/krateoplatform
 
 Checkout the [cheatsheet](cheatsheet.md) for an in-depth guide to Krateo Composable FinOps integration.
 
+The `values.yaml` file contains the annotations for [krateoctl](https://github.com/krateoplatformops/krateoctl) to support the automatic generation of the `values.schema.json`.
+
 ## Summary
 
 1. [Overview](#overview)
