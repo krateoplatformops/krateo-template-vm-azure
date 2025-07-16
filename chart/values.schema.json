@@ -45,7 +45,7 @@
       "type": "string"
     },
     "webhook": {
-      "additionalProperties": false,
+      "additionalProperties": true,
       "description": "Webhook configuration, the certificare and the service should match the OPA install. Default values match the krateo-installer.",
       "properties": {
         "CA": {
@@ -364,7 +364,7 @@
           "type": "boolean"
         },
         "overview": {
-          "additionalProperties": false,
+          "additionalProperties": true,
           "properties": {
             "icon": {
               "default": "fa-hand-holding-dollar",

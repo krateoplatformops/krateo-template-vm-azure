@@ -257,8 +257,6 @@ portal:
   overview:
     icon: fa-hand-holding-dollar
 
-
-
 # @schema
 # type: object
 # required: true
