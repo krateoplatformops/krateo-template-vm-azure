@@ -27,12 +27,13 @@ spec:
     name: finops-schema
     namespace: azure-pricing-system
   resourcesRefs:
-  - apiVersion: composition.krateo.io/v0-1-1
-    id: resource-ref-1
-    name: new-app
-    namespace: azure-pricing-system
-    resource: vmazures
-    verb: POST
+    items:
+    - apiVersion: composition.krateo.io/v0-1-2
+      id: resource-ref-1
+      name: new-app
+      namespace: azure-pricing-system
+      resource: vmazures
+      verb: POST
   widgetDataTemplate:
   - expression: ${ .getSchemaNotOrdered.data["values.schema.json"] }
     forPath: stringSchema

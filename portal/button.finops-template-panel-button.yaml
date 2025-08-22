@@ -16,6 +16,7 @@ spec:
           type: rest
           onSuccessNavigateTo: /templates
   resourcesRefs:
+    items:
     - id: cleanup
       apiVersion: templates.krateo.io/v1
       resource: restactions

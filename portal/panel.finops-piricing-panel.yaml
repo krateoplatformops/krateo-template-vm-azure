@@ -10,6 +10,7 @@ spec:
     items:
       - resourceRefId: paragraph
   resourcesRefs:
+    items:
     - id: paragraph
       apiVersion: widgets.templates.krateo.io/v1beta1
       name: finops-pricing-panel-paragraph

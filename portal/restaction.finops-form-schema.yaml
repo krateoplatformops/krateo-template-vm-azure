@@ -8,5 +8,5 @@ spec:
   - headers:
     - 'Accept: application/json'
     name: getSchemaNotOrdered
-    path: /api/v1/namespaces/azure-pricing-system/configmaps/vmazures-v0-1-1-jsonschema-configmap
+    path: /api/v1/namespaces/azure-pricing-system/configmaps/vmazures-v0-1-2-jsonschema-configmap
     verb: GET

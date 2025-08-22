@@ -16,7 +16,7 @@ spec:
       - resourceRefId: template-panel-button
     tags: 
       - azure-pricing-system
-      - "0.2.0"
+      - "0.1.2"
     icon:
       name: fa-hand-holding-dollar
       color: green
@@ -37,6 +37,7 @@ spec:
     - forPath: headerRight
       expression: ${ .getCompositionDefinition.metadata.creationTimestamp }
   resourcesRefs:
+    items:
     - id: template-panel-paragraph
       apiVersion: widgets.templates.krateo.io/v1beta1
       name: finops-template-panel-paragraph
