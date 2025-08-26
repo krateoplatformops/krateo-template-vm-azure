@@ -15,6 +15,7 @@ spec:
           resourceRefId: pricing-information
           type: openDrawer
   resourcesRefs:
+    items:
     - id: pricing-information
       apiVersion: widgets.templates.krateo.io/v1beta1
       resource: panel

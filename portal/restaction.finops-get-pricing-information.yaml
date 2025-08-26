@@ -10,7 +10,7 @@ spec:
     verb: GET
     headers:
     - 'Accept: application/json'
-    filter: .metadata.uid
+    filter: .getCompositionDefinition.metadata.uid
   - name: getPricingInformation
     endpointRef: 
       name: finops-database-handler-endpoint
