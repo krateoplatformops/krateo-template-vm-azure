@@ -4,7 +4,7 @@ metadata:
   name: finops-template-panel
   namespace: azure-pricing-system
   labels:
-    krateo.io/portal-page: templates
+    krateo.io/portal-page: blueprints
 spec:
   apiRef:
     name: vmazures-compositiondefinition

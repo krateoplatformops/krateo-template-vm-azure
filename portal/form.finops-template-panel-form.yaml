@@ -12,9 +12,9 @@ spec:
       rest:
       - id: finops-submit-action
         onEventNavigateTo:
-            eventReason: "CompositionCreated"
-            url: "/compositions/${metadata.namespace}/${metadata.name}"
-            timeout: 50
+          eventReason: "CompositionCreated"
+          url: "/compositions/${metadata.namespace}/${metadata.name}"
+          timeout: 50
         payloadToOverride:
         - name: metadata.name
           value: ${ name }
@@ -23,6 +23,8 @@ spec:
         payloadKey: spec
         resourceRefId: resource-ref-1
         type: rest
+        headers:
+          - "Content-Type: application/json"
   apiRef:
     name: finops-schema
     namespace: azure-pricing-system
