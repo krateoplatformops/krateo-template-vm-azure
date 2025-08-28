@@ -205,7 +205,6 @@ global:
   # default: finops
   # @schema
   tableName: finops
-  compositionResource: vmazures
   # @schema
   # type: string
   # required: true
@@ -214,42 +213,16 @@ global:
   # @schema
   # This is temporary and will have to be removed when the cdc-chart inspector passing of values functionality is added
   krateoNamespace: krateo-system
-  # @schema
-  # type: string
-  # required: false
-  # default: compositionApiVersion
-  # @schema
-  compositionApiVersion: compositionApiVersion
-  # @schema
-  # type: string
-  # required: false
-  # default: compositionName
-  # @schema
-  compositionName: compositionName
-  # @schema
-  # type: string
-  # required: false
-  # default: compositionNamespace
-  # @schema
-  compositionNamespace: compositionNamespace
-  # @schema
-  # type: string
-  # required: false
-  # default: compositionId
-  # @schema
-  compositionId: compositionId
 
 
 # @schema
 # type: object
 # required: true
 # description: Enable or disable the portal for the composition.
-# additionalProperties: true
+# additionalProperties: false
 # @schema
 portal:
   enabled: true
-  overview:
-    icon: fa-hand-holding-dollar
 
 # @schema
 # type: object
