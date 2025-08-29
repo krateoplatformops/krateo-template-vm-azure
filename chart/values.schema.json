@@ -319,12 +319,6 @@
       "additionalProperties": true,
       "description": "Global balues passed to the chart's dependencies.",
       "properties": {
-        "krateoNamespace": {
-          "default": "krateo-system",
-          "description": "Namespace where Krateo is installed.",
-          "title": "krateoNamespace",
-          "type": "string"
-        },
         "tableName": {
           "default": "finops",
           "description": "Name of the Table in the FinOps database to get costs and metrics from.",
@@ -333,8 +327,7 @@
         }
       },
       "required": [
-        "tableName",
-        "krateoNamespace"
+        "tableName"
       ],
       "title": "global",
       "type": "object"
