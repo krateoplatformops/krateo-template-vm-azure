@@ -205,14 +205,6 @@ global:
   # default: finops
   # @schema
   tableName: finops
-  # @schema
-  # type: string
-  # required: true
-  # description: Namespace where Krateo is installed. 
-  # default: krateo-system
-  # @schema
-  # This is temporary and will have to be removed when the cdc-chart inspector passing of values functionality is added
-  krateoNamespace: krateo-system
 
 
 # @schema
