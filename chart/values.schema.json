@@ -294,7 +294,7 @@
               "type": "string"
             },
             "namespace": {
-              "default": "krateo-system",
+              "default": "azure-pricing-system",
               "description": "Namespace of the Moving window microservice endpoint.",
               "title": "namespace",
               "type": "string"
