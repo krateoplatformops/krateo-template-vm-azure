@@ -1,3 +1,7 @@
+> [!NOTE]
+> This repository has been archived. Go to https://github.com/krateoplatformops-blueprints/azure-vm-finops/ for the most recent version.
+
+
 # Krateo Composable FinOps Template for an Azure Virtual Machine
 This repository contains a Composition Definition for Krateo that leverages the Krateo Composable FinOps components to integrate resources created through the Azure Operator, the pricing visualization flow, the cost and usages collections and optimization. The composition creates a Virtual Machine on Azure through the Azure operator, visualizing it in the frontend through a card widget and custom form. The widget shows the pricing information retrieved through the FinOps module. Inside the composition page, the FinOps tab allows to see costs and usages of the virtual machine.
 
